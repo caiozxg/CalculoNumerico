@@ -3,16 +3,22 @@
 #include <time.h>
 
 double raiz_enesima(double p, int m, int *iteracoes) {
-    double x0 = p / m;  // estimativa inicial
+    double x0 = 1;  // estimativa inicial
     double x1;
-    double erro = 1e-7;  // erro tolerado
+    double erro = 1e-7; 
     *iteracoes = 0;
     
-    while (1) {
-        x1 = ((m - 1) * x0 + p / pow(x0, m - 1)) / m;  // metodo de Newton-Raphson
+    printf("Iterações:\n");
+
+    // Faz a iteração pelo menos 9 vezes
+    while (*iteracoes < 9 || fabs(x1 - x0) >= erro) {
+        x1 = ((m - 1) * x0 + p / pow(x0, m - 1)) / m;  
         (*iteracoes)++;
         
-        if (fabs(x1 - x0) < erro) break;
+        // Mostra o valor atual da iteração
+        printf("Iteração %d: x = %.10f\n", *iteracoes, x1);
+        
+        if (fabs(x1 - x0) < erro && *iteracoes >= 9) break;
         x0 = x1;
     }
     
@@ -30,21 +36,20 @@ int main() {
     printf("Qual o valor do grau da raiz: ");
     scanf("%d", &m);
     
-    // Inicia o calculo do tempo
+    // Inicia o cálculo do tempo
     inicio = clock();
     
-    // Calcula a raiz enesima
+    // Calcula a raiz enésima
     double resultado = raiz_enesima(p, m, &iteracoes);
     
-    // Fim do calculo do tempo
+    // Fim do cálculo do tempo
     fim = clock();
     double tempo_execucao = (double)(fim - inicio) / CLOCKS_PER_SEC;
     
-    // Mostra as iteracoes e o resultado final
-    
-    printf("Raiz %d de %.6f: %.6f\n", m, p, resultado);
-    printf("Numero de iteracoes: %d\n", iteracoes);
-    printf("Tempo de execucao: %.6f segundos\n", tempo_execucao);
+    // Mostra o resultado final
+    printf("Raiz de %.6f com expoente %d: %.6f\n", p, m, resultado);
+    printf("Número de iterações: %d\n", iteracoes);
+    printf("Tempo de execução: %.6f segundos\n", tempo_execucao);
     
     return 0;
 }
