@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <math.h>
 #include <time.h>
+#include <math.h>
 
 // Função polinomial f(x) = c0 + c1*x + c2*x^2 + ... + cn*x^n
 double polinomio(double x, double coef[], int grau) {
@@ -16,16 +16,17 @@ int main() {
     clock_t inicio, fim;
     double tempo_execucao;
     
-    // Entrada do grau do polinomio
+    // Entrada do grau do polinômio
     printf("Digite o grau do polinomio: ");
     scanf("%d", &grau);
     
-    double coef[grau+1];
+    double coef[grau + 1];
     
-    // Geração automática dos coeficientes (exemplo)
-    // Aqui, coeficiente c0 = 1, c1 = -2, c2 = 1 para grau 2 (polinômio exemplo: f(x) = x^2 - 2x + 1)
+    // Entrada dos coeficientes do polinômio
+    printf("Digite os coeficientes do polinomio (c0, c1, ..., cn):\n");
     for (int i = 0; i <= grau; i++) {
-        coef[i] = (i % 2 == 0) ? 1 : -2;  // Alterna entre 1 e -2
+        printf("c[%d]: ", i);
+        scanf("%lf", &coef[i]);
     }
     
     // Entrada dos limites iniciais do intervalo [a, b]
